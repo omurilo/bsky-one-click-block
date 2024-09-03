@@ -13,9 +13,13 @@
     "user"
   ],
   "repository": "omurilo/bsky-one-click-block",
-"license": "MIT",
+  "license": "MIT",
   "author": "Murilo Alves <hi@omurilo.dev> (https://omurilo.dev)",
   "scripts": {
-    "build": "zip -r bsky-one-click-block.zip index.js utils.js manifest.json"
+    "build": "zip -r bsky-one-click-block.zip index.js utils.js manifest.json icons/",
+    "format": "prettier --write *.js"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
   }
 }
