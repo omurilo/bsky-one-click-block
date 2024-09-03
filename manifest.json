@@ -6,9 +6,13 @@
   "minimum_chrome_version": "102",
   "host_permissions": ["https://bsky.app/*"],
   "permissions": ["storage"],
+  "icons": {
+    "128": "icons/icon.jpg"
+  },
+  "web_acessible_resources": ["icons/icon.jpg"],
   "content_scripts": [
     {
-      "matches": ["https://developer.chrome.com/docs/extensions/reference/*"],
+      "matches": ["https://bsky.app/*"],
       "js": ["index.js", "utils.js"]
     }
   ]
