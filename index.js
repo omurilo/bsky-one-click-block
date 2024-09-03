@@ -1,45 +1,59 @@
 const FEED_ITEM_TAG = 'feedItem-by-';
 
-document.addEventListener('DOMContentLoaded', () => {
+if(document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() { setTimeout(createBtnsEventListeners, 1000) });
+} else {
+  setTimeout(createBtnsEventListeners, 1000);
+}
+
+function createBtnsEventListeners() {
   const postDropdownBtn = document.querySelectorAll('[data-testid=postDropdownBtn]');
+
+  if (!postDropdownBtn.length) {
+    setTimeout(createBtnsEventListeners, 1000);
+  }
 
   for (const btn of postDropdownBtn.values()) {
     if (btn.offsetParent !== null) {
       const rootNode = searchRootNode(btn);
-      const username = rootNode.testid.replace(FEED_ITEM_TAG, '');
+      const username = rootNode.dataset.testid.replace(FEED_ITEM_TAG, '');
       btn.addEventListener('click', configurePostDropdownClick(username));
     }
   }
-});
+}
 
-document.addEventListener(
+/* document.addEventListener(
   'DOMNodeInserted',
-  debounce((e) => {
+  debounce(function (e) {
     if (window.pause_event !== true) {
       if (e.target.dataset && e.target.dataset.testid && ['postDropdownBtn'].includes(e.target.dataset.testid)) {
         const rootNode = searchRootNode(e.target);
-        const username = rootNode.testid.replace(FEED_ITEM_TAG, '');
+        const username = rootNode.dataset.testid.replace(FEED_ITEM_TAG, '');
         e.target.addEventListener('click', configurePostDropdownClick(username));
       }
     }
   }, 20),
-);
+); */
 
 function searchRootNode(node) {
-  return node.closes(`[data-testid*=${FEED_ITEM_TAG}]`);
+  return node.closest(`[data-testid*=${FEED_ITEM_TAG}]`);
 }
 
 function configurePostDropdownClick(username) {
   return () => {
+    if (buttonHasAlreadyExists()) return true;
+
     setTimeout(() => {
       const postDropdownReportBtn = document.querySelector('[data-testid=postDropdownReportBtn]');
-      console.log(username);
 
       const buttonBlockUser = createBlockUserBtn(postDropdownReportBtn, username);
-
       postDropdownReportBtn.parentNode.appendChild(buttonBlockUser);
     }, 500);
   };
+}
+
+function buttonHasAlreadyExists() {
+  return !!document.querySelector('[data-testid=postDropdownBlockBtn]')
 }
 
 function createBlockUserBtn(baseBtn, username) {
@@ -81,7 +95,7 @@ async function blockUser(name) {
       body,
       method: 'POST',
     });
-    console.log('user blocked');
+    window.alert(`user  "${name}" has been blocked`);
   } catch (error) {
     window._log?.('block user error: ', error);
   }
