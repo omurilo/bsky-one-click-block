@@ -1,9 +1,35 @@
 const FEED_ITEM_TAG = 'feedItem-by-';
+const THREAD_ITEM_TAG = 'postThreadItem-by-';
+
+
 
 if(document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() { setTimeout(createBtnsEventListeners, 1000) });
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+      createBtnsEventListeners();
+      setObservers();
+    }, 1000);
+  });
 } else {
-  setTimeout(createBtnsEventListeners, 1000);
+  setTimeout(() => {
+    createBtnsEventListeners();
+    setObservers();
+  }, 1000);
+}
+
+function setObservers() {
+  const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (mutation.type === "childList" && mutation.addedNodes.length) {
+        createBtnsEventListeners();
+      } 
+    });
+  });
+
+  const feedLists = document.querySelectorAll('[data-testid*=FeedPage-feed-flatlist]');
+  feedLists.forEach(function(list) {
+    observer.observe(list.childNodes[1], { childList: true });
+  });
 }
 
 function createBtnsEventListeners() {
@@ -16,27 +42,25 @@ function createBtnsEventListeners() {
   for (const btn of postDropdownBtn.values()) {
     if (btn.offsetParent !== null) {
       const rootNode = searchRootNode(btn);
-      const username = rootNode.dataset.testid.replace(FEED_ITEM_TAG, '');
+      const username = getPostUsername(rootNode);
       btn.addEventListener('click', configurePostDropdownClick(username));
     }
   }
 }
 
-/* document.addEventListener(
-  'DOMNodeInserted',
-  debounce(function (e) {
-    if (window.pause_event !== true) {
-      if (e.target.dataset && e.target.dataset.testid && ['postDropdownBtn'].includes(e.target.dataset.testid)) {
-        const rootNode = searchRootNode(e.target);
-        const username = rootNode.dataset.testid.replace(FEED_ITEM_TAG, '');
-        e.target.addEventListener('click', configurePostDropdownClick(username));
-      }
-    }
-  }, 20),
-); */
-
 function searchRootNode(node) {
-  return node.closest(`[data-testid*=${FEED_ITEM_TAG}]`);
+  const feedItem = node.closest(`[data-testid*=${FEED_ITEM_TAG}]`);
+  const postItem = node.closest(`[data-testid*=${THREAD_ITEM_TAG}]`);
+  return feedItem || postItem;
+}
+
+function getPostUsername(node) {
+  const testid = node.dataset.testid;
+  if (testid.match(FEED_ITEM_TAG)) {
+    return testid.replace(FEED_ITEM_TAG, '');
+  }
+
+  return testid.replace(THREAD_ITEM_TAG, '');
 }
 
 function configurePostDropdownClick(username) {
