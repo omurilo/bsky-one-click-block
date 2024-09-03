@@ -1,8 +1,6 @@
 const FEED_ITEM_TAG = 'feedItem-by-';
 const THREAD_ITEM_TAG = 'postThreadItem-by-';
 
-
-
 if(document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
@@ -65,9 +63,9 @@ function getPostUsername(node) {
 
 function configurePostDropdownClick(username) {
   return () => {
-    if (buttonHasAlreadyExists()) return true;
-
     setTimeout(() => {
+      if (buttonHasAlreadyExists()) return true;
+
       const postDropdownReportBtn = document.querySelector('[data-testid=postDropdownReportBtn]');
 
       const buttonBlockUser = createBlockUserBtn(postDropdownReportBtn, username);
