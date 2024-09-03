@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "1-click block bluesky user",
+  "description": "A 1-click button to block bluesky user",
+  "version": "1.0.0",
+  "minimum_chrome_version": "102",
+  "host_permissions": ["https://bsky.app/*"],
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://developer.chrome.com/docs/extensions/reference/*"],
+      "js": ["index.js", "utils.js"]
+    }
+  ]
+}
