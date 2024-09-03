@@ -16,6 +16,6 @@
 "license": "MIT",
   "author": "Murilo Alves <hi@omurilo.dev> (https://omurilo.dev)",
   "scripts": {
-    "build": "zip -r file.zip index.js utils.js manifest.json"
+    "build": "zip -r bsky-one-click-block.zip index.js utils.js manifest.json"
   }
 }
