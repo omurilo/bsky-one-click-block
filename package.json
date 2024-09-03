@@ -1,7 +1,7 @@
 {
   "name": "bsky-one-click-block",
   "description": "A extension to browser one click block user on Bluesky",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "keywords": [
     "chrome",
     "extension",
