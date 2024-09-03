@@ -1,0 +1,21 @@
+{
+  "name": "bsky-one-click-block",
+  "description": "A extension to browser one click block user on Bluesky",
+  "version": "1.0.0",
+  "keywords": [
+    "chrome",
+    "extension",
+    "webstore",
+    "store",
+    "bluesky",
+    "bsky",
+    "block",
+    "user"
+  ],
+  "repository": "omurilo/bsky-one-click-block",
+"license": "MIT",
+  "author": "Murilo Alves <hi@omurilo.dev> (https://omurilo.dev)",
+  "scripts": {
+    "build": "zip -r file.zip index.js utils.js manifest.json"
+  }
+}
