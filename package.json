@@ -1,7 +1,7 @@
 {
   "name": "bsky-one-click-block",
   "description": "A extension to browser one click block user on Bluesky",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "keywords": [
     "chrome",
     "extension",
@@ -16,10 +16,16 @@
   "license": "MIT",
   "author": "Murilo Alves <hi@omurilo.dev> (https://omurilo.dev)",
   "scripts": {
-    "build": "zip -r bsky-one-click-block.zip index.js utils.js manifest.json icons/",
-    "format": "prettier --write *.js"
+    "build": "zip -r bsky-one-click-block.zip index.js manifest.json icons/",
+    "format": "prettier --write *.js",
+    "lint": "eslint --fix ."
   },
   "devDependencies": {
-    "prettier": "^3.3.3"
+    "@eslint/js": "^9.10.0",
+    "eslint": "^9.10.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.9.0",
+    "prettier": "3.3.3"
   }
 }

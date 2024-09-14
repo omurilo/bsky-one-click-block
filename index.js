@@ -1,8 +1,8 @@
 const FEED_ITEM_TAG = 'feedItem-by-';
 const THREAD_ITEM_TAG = 'postThreadItem-by-';
 
-if(document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
       createBtnsEventListeners();
       setObservers();
@@ -18,14 +18,14 @@ if(document.readyState === 'loading') {
 function setObservers() {
   const observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
-      if (mutation.type === "childList" && mutation.addedNodes.length) {
+      if (mutation.type === 'childList' && mutation.addedNodes.length) {
         createBtnsEventListeners();
-      } 
+      }
     });
   });
 
   const feedLists = document.querySelectorAll('[data-testid*=FeedPage-feed-flatlist]');
-  feedLists.forEach(function(list) {
+  feedLists.forEach(function (list) {
     observer.observe(list.childNodes[1], { childList: true });
   });
 }
@@ -75,7 +75,7 @@ function configurePostDropdownClick(username) {
 }
 
 function buttonHasAlreadyExists() {
-  return !!document.querySelector('[data-testid=postDropdownBlockBtn]')
+  return !!document.querySelector('[data-testid=postDropdownBlockBtn]');
 }
 
 function createBlockUserBtn(baseBtn, username) {
